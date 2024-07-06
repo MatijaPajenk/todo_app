@@ -4,8 +4,8 @@ import { Filter } from "../types"
 
 interface TodoListProps {
   todos: TodoItem[]
-  handleDeleteTodo: (id: number) => void
-  handleToggleTodo: (id: number) => void
+  handleDeleteTodo: (id: string) => void
+  handleToggleTodo: (id: string) => void
   filter: Filter
 }
 

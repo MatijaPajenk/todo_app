@@ -4,8 +4,8 @@ import { TrashCan } from "@carbon/icons-react"
 
 interface TodoListItemProps {
   todo: TodoItem
-  handleDeleteTodo: (id: number) => void
-  handleToggleTodo: (id: number) => void
+  handleDeleteTodo: (id: string) => void
+  handleToggleTodo: (id: string) => void
 }
 
 export const TodoListItem = ({

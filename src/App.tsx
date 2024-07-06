@@ -1,5 +1,5 @@
 "use client"
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import {
   Button,
   TextInput,
@@ -17,6 +17,19 @@ function App() {
   const [currentContent, setCurrentContent] = useState("")
   const [filter, setFilter] = useState<Filter>("all")
 
+  useEffect(() => {
+    const storedTodos = localStorage.getItem("todos")
+    if (storedTodos) {
+      setTodos(JSON.parse(storedTodos))
+    }
+  }, [])
+
+  useEffect(() => {
+    if (todos.length === 0) return
+
+    localStorage.setItem("todos", JSON.stringify(todos))
+  }, [todos])
+
   const handleAddTodo = () => {
     if (currentContent.trim().length === 0) {
       return
@@ -25,7 +38,7 @@ function App() {
     setTodos([
       ...todos,
       {
-        id: todos.length,
+        id: crypto.randomUUID(),
         content: currentContent,
         completed: false,
       },
@@ -33,11 +46,11 @@ function App() {
     setCurrentContent("")
   }
 
-  const handleDeleteTodo = (id: number) => {
+  const handleDeleteTodo = (id: string) => {
     setTodos(todos.filter((todo) => todo.id !== id))
   }
 
-  const handleToggleTodo = (id: number) => {
+  const handleToggleTodo = (id: string) => {
     setTodos(
       todos.map((todo) => {
         if (todo.id === id) {
@@ -49,14 +62,10 @@ function App() {
   }
 
   return (
-    <main
-      style={{
-        margin: "1em",
-        marginRight: "3em",
-      }}>
-      <h1>TODO List</h1>
-      <br />
+    <main style={{ margin: "1.5em" }}>
       <FlexGrid>
+        <h1>TODO List</h1>
+        <br />
         <Row as="section">
           <TextInput
             id="todo_content"
