@@ -81,6 +81,7 @@ function App() {
             }}
           />
           <Button
+            kind="secondary"
             size="md"
             renderIcon={Add}
             iconDescription="Add new TODO"
